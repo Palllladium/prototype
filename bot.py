@@ -23,12 +23,14 @@ def telegram_bot(token):
             try:
                 names_of_coins = message.text.lower()[7:].split(" to ")
                 req = requests.get(f"https://yobit.net/api/3/depth/"
-                                   f"{names_of_coins[0].strip()}_{names_of_coins[1].strip()}?limit={5}&ignore_invalid=1")
+                                   f"{names_of_coins[0].strip()}_{names_of_coins[1].strip()}?"
+                                   f"limit={5}&ignore_invalid=1")
                 response = req.json()
                 info_of_orders = response[f"{names_of_coins[0].strip()}_{names_of_coins[1].strip()}"]
                 items = ["Asks", "Bids"]
                 answer = f"{datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n" \
-                         f"Actual the most profitable orders of {names_of_coins[0].strip()} to {names_of_coins[1].strip()}:\n"
+                         f"Actual the most profitable orders of {names_of_coins[0].strip()} to" \
+                         f" {names_of_coins[1].strip()}:\n"
 
                 for item in items:
                     array_of_orders = info_of_orders[item.lower()]
